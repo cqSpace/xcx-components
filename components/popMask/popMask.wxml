@@ -1,0 +1,54 @@
+<view class="popup-mask {{isIphoneX && customs.isDealIphoneX ? 'bottom-34' : ''}}" style="{{maskBgStyle}}" animation="{{animationData}}" hidden='{{!showPop}}' catchtap="{{customs.bgClose ? '_cancel' : ''}}" catchtouchmove='noAction'></view>
+<block wx:if="{{customs.showBtn}}">
+    <view class="popup-mask-box popup-mask-bottom {{isIphoneX && customs.isDealIphoneX ? 'bottom-34' : ''}}" style="{{boxStyle}}" animation="{{animationData1}}" hidden='{{!showPop}}' bind:transitionend="_transitionEnd" catchtouchmove='noAction' catchtap="noAction">
+        <view class="close" catchtap="_cancel">
+            <view class="icon-cross"></view>
+        </view>
+        <view class="flex flex-column">
+            <view class="header">
+                <view class="header-title {{customs.isExplain && !customs.tips ? 'thin-border-bottom' : ''}}" wx:if="{{customs.title}}">
+                    <view class="blod">{{customs.title}}</view>
+                    <view class="header-subtitle" wx:if="{{customs.subTitle}}"><text>{{customs.subTitle}}</text></view>
+                </view>
+                <view class="tips" wx:if="{{customs.tips}}">
+                    <text>{{customs.tips}}</text>
+                </view>
+            </view>
+            <view wx:if="{{!customs.scrollToView}}" class="popup-body flex1 {{customs.isExplain ? 'bg-fff' : ''}}">
+                <!--撑起高度-->
+                <view class="scroll-content">
+                    <scroll-view scroll-y="true" scroll-top="{{scrollTop}}" style="height: 100%;">
+                        <!-- scroll-view如果能滚动起来就不会冒泡，所以将蒙版里的scroll-view的内容的最小高度设为scroll-view的高度加1px-->
+                        <view class="scroll-content bottom-1">
+                            <slot />
+                        </view>
+                    </scroll-view>
+                </view>
+            </view>
+            <!-- 开启scrollToView，设置滚动需要到插槽内部实现 -->
+            <view wx:else class="popup-body flex1">
+                <view class="scroll-content">
+                    <slot />
+                </view>
+            </view>
+            <view class="tips" wx:if="{{customs.bottomTips}}">
+                <text>{{customs.bottomTips}}</text>
+            </view>
+            <view class="popup-footer flex" wx:if="{{customs.buttons.length == 1}}">
+                <view class="popup-btn flex1" style="{{customs.buttons[0].bgColor ? 'background-color:' + customs.buttons[0].bgColor + ';' : ''}}{{customs.buttons[0].color ? 'color:' + customs.buttons[0].color + ';' : ''}}" data-index="0" bindtap="btnClick">
+                    {{customs.buttons[0].txt}}
+                </view>
+            </view>
+            <view class="popup-footers flex" wx:elif="{{customs.buttons.length == 2}}">
+                <view class="popup-btn flex1 {{key == 0 ? 'first-btn thin-border-all' : ''}}" wx:for="{{customs.buttons}}" wx:key="key" wx:for-index="key" style="{{item.bgColor ? 'background-color:' + item.bgColor + ';' : ''}}{{item.color ? 'color:' + item.color + ';' : ''}}" data-index="{{key}}" bindtap="btnClick">
+                    {{item.txt}}
+                </view>
+            </view>
+        </view>
+    </view>
+</block>
+<block wx:else>
+    <view class="popup-mask-box popup-mask-bottom {{isIphoneX && customs.isDealIphoneX ? 'bottom-34' : ''}}" style="{{boxStyle}}" animation="{{animationData1}}" hidden='{{!showPop}}' bind:transitionend="_transitionEnd" catchtouchmove='noAction' catchtap="noAction">
+        <slot />
+    </view>
+</block>

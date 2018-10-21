@@ -1,0 +1,19 @@
+.main {
+    height: 800px;
+}
+
+.intro {
+    margin: 30rpx;
+    text-align: center;
+}
+
+.btn {
+    margin: 30rpx auto 0;
+    width: 80%;
+    height: 80rpx;
+    line-height: 80rpx;
+    border: 1px solid #333;
+    border-radius: 10rpx;
+    text-align: center;
+    box-sizing: border-box;
+}

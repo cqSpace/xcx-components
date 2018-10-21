@@ -1,0 +1,19 @@
+
+<view class="main" style="{{scrollStyle}}">
+    <view class="intro">DEMO</view>
+    <view class="btn" bindtap="popOne">弹层1</view>
+    <view class="btn" bindtap="popTwo">弹层2</view>
+    <view class="btn" bindtap="popThree">弹层3</view>
+</view>
+<popMask id="popMaskOne">
+    <view>我是内容</view>
+</popMask>
+<popMask id="popMaskTwo">
+    <view>我是内容1</view>
+</popMask>
+<popMask id="popMaskThree">
+    <view>我是内容2</view>
+    <view>我是内容2</view>
+    <view>我是内容2</view>
+    <view>我是内容2</view>
+</popMask>
