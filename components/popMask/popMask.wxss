@@ -79,17 +79,40 @@
     right: 0;
     width: 88rpx;
     height: 108rpx;
-    line-height: 108rpx;
-    text-align: center;
     z-index: 10;
 }
 .icon-cross {
-    display: inline-block;
-    width: 14px;
-    height: 14px;
-    background: url('https://file.40017.cn/trainwechat/product/miniapp/common/icon-1th.png?v=1') no-repeat;
-    background-size: 320px; 
-    background-position: -10.5px -113.5px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 28rpx;
+    height: 28rpx;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+.icon-cross:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 4rpx;
+    height: 40rpx;
+    background: #d3d3d3;
+    border-radius: 2rpx;
+    -webkit-transform: translate(-50%, -50%) rotate(45deg);
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+.icon-cross:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    width: 4rpx;
+    height: 40rpx;
+    background: #d3d3d3;
+    border-radius: 2rpx;
+    -webkit-transform: translate(50%, -50%) rotate(-45deg);
+    transform: translate(50%, -50%) rotate(-45deg);
 }
 .header {
     background: #fff;
