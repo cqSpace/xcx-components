@@ -1,5 +1,5 @@
 
-<view class="main" style="{{scrollStyle}}">
+<view class="main">
     <view class="intro">DEMO</view>
     <view class="btn" bindtap="popOne">弹层1</view>
     <view class="btn" bindtap="popTwo">弹层2</view>

@@ -11,12 +11,14 @@
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.3.0",
+	"libVersion": "2.9.4",
 	"appid": "touristappid",
 	"projectname": "components",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
 	"condition": {
 		"search": {
 			"current": -1,

@@ -1,6 +1,5 @@
 {
-	"navigationBarBackgroundColor": "#17cd96",
-    "navigationBarTextStyle": "#fff",
+    "navigationBarTextStyle": "white",
     "usingComponents": {
         "popMask":"../components/popMask/popMask"
     }
