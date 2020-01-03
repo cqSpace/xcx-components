@@ -59,7 +59,7 @@ function touchmove(e, ins) {
 }
 
 function touchend(e, ins) {
-    if (closeTouch || deltaY == 0 || isAnimating) {
+    if (closeTouch || isAnimating) {
         return
     }
     e.changedTouches.map(function (item) {

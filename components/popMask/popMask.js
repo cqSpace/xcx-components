@@ -399,7 +399,7 @@ Component({
             })
         },
         _onEnd(e) {
-            if (this.data.customs.closeTouch || this.deltaY == 0 || this.data.isAnimating) {
+            if (this.data.customs.closeTouch || this.data.isAnimating) {
                 return
             }
             e.changedTouches.map(item => {
