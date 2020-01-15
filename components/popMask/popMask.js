@@ -45,6 +45,7 @@
         ........
     </popMasker> 
 */
+import touch from "touch.js";
 let sysInfo = wx.getSystemInfoSync();
 Component({
     options: {
@@ -359,74 +360,31 @@ Component({
             if (this.data.customs.closeTouch || this.data.isAnimating) {
                 return
             }
-            let touches = e.changedTouches;
-            this.pointY = touches[0].pageY; //当前手指坐标
-            this.lastPointerId = touches[0].identifier;
-            this.lastDeltaY = (this.deltaY || 0) + 0;
-            if (e.touches.length == 1) {
-                this.pointList = [this.lastPointerId];
-            } else {
-                if (!this.pointList) {
-                    this.pointList = [];
-                } 
-                this.pointList.push(this.lastPointerId);
-            }
+            touch.onStart(e);
         },
         _onMove(e) {
             if (this.data.customs.closeTouch || this.data.isAnimating) {
                 return
             }
-            let touch = e.changedTouches[0];
-            if (e.changedTouches.length > 1) {
-                let hasTouch = false;
-                for (let i = e.changedTouches.length - 1; i >= 0; i--) {
-                    if (e.changedTouches[i].identifier == this.lastPointerId) {
-                        touch = e.changedTouches[i];
-                        hasTouch = true;
-                        break;
-                    }
-                }
-                if (!hasTouch) {
-                    return
-                }
-            } else if (this.lastPointerId != touch.identifier) {
-                return
-            }
-            this.deltaY = this.lastDeltaY + touch.pageY - this.pointY;
-            if (this.deltaY < 0) this.deltaY = 0;
-            this.setData({
-                boxAnimate: `-webkit-transform:translate3d(0, ${this.deltaY}px, 0);transform:translate3d(0, ${this.deltaY}px, 0);-webkit-transition:none;transition:none;`
+            touch.onMove(e, deltaY => {
+                if (deltaY < 0) deltaY = 0;
+                this.setData({
+                    boxAnimate: `-webkit-transform:translate3d(0, ${deltaY}px, 0);transform:translate3d(0, ${deltaY}px, 0);-webkit-transition:none;transition:none;`
+                })
             })
         },
         _onEnd(e) {
             if (this.data.customs.closeTouch || this.data.isAnimating) {
                 return
             }
-            e.changedTouches.map(item => {
-                let idx = this.pointList.indexOf(item.identifier);
-                if (idx != -1) {
-                    this.pointList.splice(idx, 1);
+            touch.onEnd(e, deltaY => {
+                if (deltaY >= this.data.hideLength) {
+                    this.endTime = Date.now();
+                    this._cancel();
+                } else {
+                    this.resetBox();            
                 }
             })
-            let touches = e.touches.filter(item => this.pointList.indexOf(item.identifier) != -1);
-            if (touches.length) {
-                let lastTouches = touches[touches.length - 1];
-                this.lastPointerId = lastTouches.identifier;
-                this.pointY = lastTouches.pageY;
-                this.lastDeltaY = this.deltaY + 0;
-                return
-            }
-            if (this.deltaY >= this.data.hideLength) {
-                this.endTime = Date.now();
-                this._cancel();
-            } else {
-                this.resetBox();            
-            }
-            this.lastDeltaY = 0;
-            this.lastPointerId = 0;
-            this.pointY = 0;
-            this.deltaY = 0;
-            this.pointList = [];
         },
         resetBox() {
             this.setData({
